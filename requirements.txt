@@ -1,0 +1,6 @@
+flask
+flask-mysql-connector
+python-dotenv
+flask-session
+gunicorn
+mysql-connector-python
