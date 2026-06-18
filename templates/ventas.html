@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ============ META ============ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Registro de ventas - Pollos Guevara" />
+    <meta name="author" content="Pollos Guevara" />
+
+    <!-- ============ TÍTULO ============ -->
+    <title>Ventas | Pollos Guevara</title>
+
+    <!-- ============ BOOTSTRAP ============ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ============ FONT AWESOME ============ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- ============ ESTILOS PERSONALIZADOS ============ -->
+    <style>
+        /* ============================================================
+                   RESET Y GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================================
+                   NAVBAR
+                   ============================================================ */
+        .navbar-custom {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+            padding: 14px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.18);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom:hover {
+            transform: scale(1.02);
+        }
+
+        .navbar-brand-custom img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand-custom img:hover {
+            border-color: #ffffff;
+            transform: rotate(-6deg) scale(1.05);
+        }
+
+        .navbar-brand-custom span {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.30);
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand-custom span i {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        .nav-user {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-user:hover {
+            background: rgba(255, 255, 255, 0.20);
+        }
+
+        .nav-user i {
+            font-size: 1.1rem;
+        }
+
+        .btn-logout {
+            border-radius: 30px;
+            padding: 6px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.50);
+            color: #ffffff;
+            background: transparent;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: #ffffff;
+            color: #E63946;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+        }
+
+        .btn-logout i {
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   CABECERA DE PÁGINA
+                   ============================================================ */
+        .page-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            gap: 12px;
+            background: white;
+            padding: 1.2rem 1.8rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .page-header h2 {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .page-header h2 i {
+            color: #F4A261;
+            margin-right: 12px;
+        }
+
+        .btn-volver {
+            border-radius: 30px;
+            padding: 0.45rem 1.4rem;
+            background: #6c757d;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-volver:hover {
+            background: #5a6268;
+            transform: translateX(-4px);
+            color: white;
+        }
+
+        /* ============================================================
+                   FORMULARIO DE VENTA
+                   ============================================================ */
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            height: 100%;
+        }
+
+        .form-card h4 {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-card h4 i {
+            color: #F4A261;
+            margin-right: 8px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .form-label i {
+            color: #E63946;
+            margin-right: 6px;
+        }
+
+        .form-select,
+        .form-control {
+            border-radius: 12px;
+            padding: 10px 16px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: #fafafa;
+        }
+
+        .form-select:focus,
+        .form-control:focus {
+            border-color: #E63946;
+            box-shadow: 0 0 0 0.2rem rgba(230, 57, 70, 0.15);
+            background: white;
+            outline: none;
+        }
+
+        .total-box {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .total-box small {
+            opacity: 0.85;
+            font-weight: 500;
+            font-size: 0.85rem;
+            display: block;
+        }
+
+        .total-box h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .btn-registrar {
+            border-radius: 30px;
+            padding: 0.6rem 2rem;
+            background: #E63946;
+            color: white;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-registrar:hover {
+            background: #C62828;
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.30);
+        }
+
+        .btn-registrar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ============================================================
+                   HISTORIAL DE VENTAS
+                   ============================================================ */
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            height: 100%;
+        }
+
+        .table-card h4 {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 1.2rem;
+        }
+
+        .table-card h4 i {
+            color: #F4A261;
+            margin-right: 8px;
+        }
+
+        .table thead th {
+            background: #E63946;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .table tbody td {
+            padding: 10px 15px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ============================================================
+                   ALERTAS
+                   ============================================================ */
+        .alert {
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            margin-top: auto;
+            padding: 2.5rem 0 1.5rem 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            border-top: 1px solid #e9ecef;
+            margin-top: 3rem;
+        }
+
+        .footer .footer-logo {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer .footer-logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .footer .footer-logo img:hover {
+            transform: scale(1.10);
+            border-color: #F4A261;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        .footer p i {
+            color: #F4A261;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .navbar-brand-custom span {
+                font-size: 1.3rem;
+            }
+            .navbar-brand-custom img {
+                width: 42px;
+                height: 42px;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem 1.2rem;
+            }
+            .page-header .acciones {
+                display: flex;
+                gap: 10px;
+            }
+            .page-header .acciones .btn-volver {
+                flex: 1;
+                justify-content: center;
+            }
+            .form-card,
+            .table-card {
+                padding: 1.2rem;
+            }
+            .total-box h1 {
+                font-size: 2.2rem;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand-custom span {
+                font-size: 1.1rem;
+            }
+            .navbar-brand-custom img {
+                width: 36px;
+                height: 36px;
+                border-width: 2px;
+            }
+            .navbar-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .nav-user {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .btn-logout {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .btn-logout span {
+                display: none;
+            }
+            .page-header {
+                padding: 0.8rem 1rem;
+                border-radius: 16px;
+            }
+            .page-header h2 {
+                font-size: 1.2rem;
+            }
+            .btn-volver {
+                font-size: 0.75rem;
+                padding: 0.35rem 1rem;
+            }
+            .form-card,
+            .table-card {
+                padding: 0.8rem;
+            }
+            .form-card h4,
+            .table-card h4 {
+                font-size: 1rem;
+            }
+            .form-select,
+            .form-control {
+                font-size: 0.85rem;
+                padding: 8px 12px;
+            }
+            .total-box {
+                padding: 0.8rem;
+            }
+            .total-box h1 {
+                font-size: 1.8rem;
+            }
+            .btn-registrar {
+                font-size: 0.85rem;
+                padding: 0.5rem 1.2rem;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.7rem;
+                padding: 6px 8px;
+            }
+            .footer {
+                padding: 1.5rem 0 1rem 0;
+                font-size: 0.75rem;
+            }
+            .footer .footer-logo img {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar-brand-custom span {
+                font-size: 0.95rem;
+            }
+            .navbar-brand-custom img {
+                width: 30px;
+                height: 30px;
+            }
+            .total-box h1 {
+                font-size: 1.5rem;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.6rem;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="navbar-container">
+                <a href="/dashboard" class="navbar-brand-custom">
+                    <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+                    <span><i class="fas fa-utensils"></i> Pollos Guevara</span>
+                </a>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <span class="nav-user">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="d-none d-sm-inline">{{ session.user_correo }}</span>
+                    </span>
+                    <a href="/logout" class="btn-logout" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="d-none d-sm-inline">Cerrar Sesión</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    CONTENIDO PRINCIPAL
+    ============================================================ -->
+    <main class="container mt-4">
+
+        <!-- ============================================================
+        CABECERA
+        ============================================================ -->
+        <div class="page-header">
+            <h2><i class="fas fa-shopping-cart"></i> Ventas</h2>
+            <div class="acciones">
+                <a href="/dashboard" class="btn-volver">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ALERTAS
+        ============================================================ -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- ============================================================
+        FORMULARIO + HISTORIAL
+        ============================================================ -->
+        <div class="row g-4">
+
+            <!-- COLUMNA IZQUIERDA: FORMULARIO -->
+            <div class="col-md-5">
+                <div class="form-card">
+                    <h4><i class="fas fa-plus-circle"></i> Nueva Venta</h4>
+
+                    <form method="POST" id="ventaForm">
+                        <!-- Producto -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-drumstick-bite"></i> Producto</label>
+                            <select name="producto_id" class="form-select" id="producto" required>
+                                <option value="">Seleccione un producto...</option>
+                                {% for producto in productos %}
+                                    <option
+                                        value="{{ producto.id }}"
+                                        data-precio="{{ producto.precio }}"
+                                        data-stock="{{ producto.stock }}"
+                                    >
+                                        {% if producto.categoria == 'pollos' %}🍗{% elif producto.categoria == 'combos' %}🍽️{% elif producto.categoria == 'papas' %}🍟{% elif producto.categoria == 'refrescos' %}🥤{% elif producto.categoria == 'postres' %}🍦{% elif producto.categoria == 'salsas' %}🌶️{% elif producto.categoria == 'extras' %}🥖{% else %}📦{% endif %}
+                                        {{ producto.nombre }} — Bs {{ producto.precio }} (Stock: {{ producto.stock }})
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <small class="text-muted">Solo productos con stock disponible</small>
+                        </div>
+
+                        <!-- Cantidad -->
+                        <div class="mb-3">
+                            <label class="form-label"><i class="fas fa-hashtag"></i> Cantidad</label>
+                            <input
+                                type="number"
+                                name="cantidad"
+                                class="form-control"
+                                id="cantidad"
+                                min="1"
+                                value="1"
+                                required
+                                oninput="calcularTotal()"
+                            />
+                        </div>
+
+                        <!-- Total -->
+                        <div class="total-box">
+                            <small><i class="fas fa-calculator"></i> TOTAL A PAGAR</small>
+                            <h1 id="total">Bs 0.00</h1>
+                        </div>
+
+                        <!-- Botón -->
+                        <button type="submit" class="btn-registrar" id="btnRegistrar">
+                            <i class="fas fa-check-circle"></i> Registrar Venta
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: HISTORIAL -->
+            <div class="col-md-7">
+                <div class="table-card">
+                    <h4><i class="fas fa-history"></i> Últimas Ventas</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Total</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for venta in ventas %}
+                                <tr>
+                                    <td>
+                                        {% set cat = venta.producto_nombre.lower() %}
+                                        {% if 'pollo' in cat %}🍗
+                                        {% elif 'combo' in cat %}🍽️
+                                        {% elif 'papas' in cat or 'fritas' in cat %}🍟
+                                        {% elif 'coca' in cat or 'pepsi' in cat or 'fanta' in cat or 'sprite' in cat or 'jugo' in cat or 'agua' in cat %}🥤
+                                        {% elif 'helado' in cat or 'flan' in cat %}🍦
+                                        {% elif 'salsa' in cat or 'picante' in cat or 'aji' in cat or 'tomate' in cat or 'mayonesa' in cat %}🌶️
+                                        {% elif 'pan' in cat %}🥖
+                                        {% else %}📦
+                                        {% endif %}
+                                        <strong>{{ venta.producto_nombre }}</strong>
+                                    </td>
+                                    <td>{{ venta.cantidad }}</td>
+                                    <td><strong>Bs {{ venta.total }}</strong></td>
+                                    <td>{{ venta.fecha }}</td>
+                                </tr>
+                                {% endfor %}
+
+                                {% if not ventas %}
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-3">
+                                        <i class="fas fa-inbox"></i> No hay ventas registradas
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+            </div>
+            <p>
+                <i class="fas fa-copyright"></i> Pollos Guevara 2026 —
+                <i class="fas fa-map-marker-alt"></i> Cochabamba, Bolivia
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    JAVASCRIPT - CÁLCULO TOTAL
+    ============================================================ -->
+    <script>
+        /**
+         * Calcula el total automáticamente al cambiar producto o cantidad
+         */
+        function calcularTotal() {
+            const productoSelect = document.getElementById('producto');
+            const cantidadInput = document.getElementById('cantidad');
+            const totalDisplay = document.getElementById('total');
+            const btnRegistrar = document.getElementById('btnRegistrar');
+
+            // Obtener precio del producto seleccionado
+            const selectedOption = productoSelect.options[productoSelect.selectedIndex];
+            const precio = parseFloat(selectedOption?.dataset?.precio) || 0;
+            const stock = parseInt(selectedOption?.dataset?.stock) || 0;
+
+            // Obtener cantidad
+            const cantidad = parseInt(cantidadInput.value) || 0;
+
+            // Calcular total
+            const total = precio * cantidad;
+            totalDisplay.textContent = `Bs ${total.toFixed(2)}`;
+
+            // Validar stock
+            if (cantidad > stock && stock > 0) {
+                totalDisplay.textContent += ' ⚠️ Stock insuficiente';
+                btnRegistrar.disabled = true;
+            } else if (cantidad < 1) {
+                btnRegistrar.disabled = true;
+            } else {
+                btnRegistrar.disabled = false;
+            }
+        }
+
+        // Ejecutar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            calcularTotal();
+
+            // Eventos
+            document.getElementById('producto').addEventListener('change', calcularTotal);
+            document.getElementById('cantidad').addEventListener('input', calcularTotal);
+        });
+    </script>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>

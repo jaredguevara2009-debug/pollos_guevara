@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ============ META ============ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Gestión de usuarios - Pollos Guevara" />
+    <meta name="author" content="Pollos Guevara" />
+
+    <!-- ============ TÍTULO ============ -->
+    <title>Usuarios | Pollos Guevara</title>
+
+    <!-- ============ BOOTSTRAP ============ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ============ FONT AWESOME ============ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- ============ ESTILOS PERSONALIZADOS ============ -->
+    <style>
+        /* ============================================================
+                   RESET Y GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================================
+                   NAVBAR
+                   ============================================================ */
+        .navbar-custom {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+            padding: 14px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.18);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom:hover {
+            transform: scale(1.02);
+        }
+
+        .navbar-brand-custom img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand-custom img:hover {
+            border-color: #ffffff;
+            transform: rotate(-6deg) scale(1.05);
+        }
+
+        .navbar-brand-custom span {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.30);
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand-custom span i {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        .nav-user {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-user:hover {
+            background: rgba(255, 255, 255, 0.20);
+        }
+
+        .nav-user i {
+            font-size: 1.1rem;
+        }
+
+        .btn-logout {
+            border-radius: 30px;
+            padding: 6px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.50);
+            color: #ffffff;
+            background: transparent;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: #ffffff;
+            color: #E63946;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+        }
+
+        .btn-logout i {
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   CABECERA DE PÁGINA
+                   ============================================================ */
+        .page-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            gap: 12px;
+            background: white;
+            padding: 1.2rem 1.8rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .page-header h2 {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .page-header h2 i {
+            color: #E63946;
+            margin-right: 12px;
+        }
+
+        .page-header .acciones {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-volver {
+            border-radius: 30px;
+            padding: 0.45rem 1.4rem;
+            background: #6c757d;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-volver:hover {
+            background: #5a6268;
+            transform: translateX(-4px);
+            color: white;
+        }
+
+        .btn-nuevo {
+            border-radius: 30px;
+            padding: 0.45rem 1.6rem;
+            background: #E63946;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nuevo:hover {
+            background: #C62828;
+            transform: scale(1.03);
+            color: white;
+        }
+
+        /* ============================================================
+                   TABLA DE USUARIOS
+                   ============================================================ */
+        .table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .table thead th {
+            background: #E63946;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .table tbody td {
+            padding: 12px 16px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ============================================================
+                   BADGE DE ROL
+                   ============================================================ */
+        .badge-rol {
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-rol-admin {
+            background: #E63946;
+            color: white;
+        }
+
+        .badge-rol-vendedor {
+            background: #2A9D8F;
+            color: white;
+        }
+
+        /* ============================================================
+                   BOTONES ACCIÓN
+                   ============================================================ */
+        .btn-accion {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+
+        .btn-accion:hover {
+            transform: scale(1.12);
+        }
+
+        .btn-accion-editar {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-accion-editar:hover {
+            background: #e0a800;
+            color: #212529;
+        }
+
+        .btn-accion-eliminar {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-accion-eliminar:hover {
+            background: #b02a37;
+            color: white;
+        }
+
+        /* ============================================================
+                   ALERTAS
+                   ============================================================ */
+        .alert {
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            margin-top: auto;
+            padding: 2.5rem 0 1.5rem 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            border-top: 1px solid #e9ecef;
+            margin-top: 3rem;
+        }
+
+        .footer .footer-logo {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer .footer-logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .footer .footer-logo img:hover {
+            transform: scale(1.10);
+            border-color: #E63946;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        .footer p i {
+            color: #E63946;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .navbar-brand-custom span {
+                font-size: 1.3rem;
+            }
+            .navbar-brand-custom img {
+                width: 42px;
+                height: 42px;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem 1.2rem;
+            }
+            .page-header .acciones {
+                display: flex;
+                gap: 10px;
+            }
+            .page-header .acciones .btn-volver,
+            .page-header .acciones .btn-nuevo {
+                flex: 1;
+                justify-content: center;
+            }
+            .table-container {
+                padding: 0.8rem;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand-custom span {
+                font-size: 1.1rem;
+            }
+            .navbar-brand-custom img {
+                width: 36px;
+                height: 36px;
+                border-width: 2px;
+            }
+            .navbar-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .nav-user {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .btn-logout {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .btn-logout span {
+                display: none;
+            }
+            .page-header {
+                padding: 0.8rem 1rem;
+                border-radius: 16px;
+            }
+            .page-header h2 {
+                font-size: 1.2rem;
+            }
+            .page-header h2 i {
+                margin-right: 8px;
+            }
+            .btn-volver,
+            .btn-nuevo {
+                font-size: 0.75rem;
+                padding: 0.35rem 1rem;
+            }
+            .table-container {
+                padding: 0.5rem;
+                border-radius: 14px;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.7rem;
+                padding: 6px 8px;
+            }
+            .badge-rol {
+                font-size: 0.6rem;
+                padding: 3px 10px;
+            }
+            .btn-accion {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+            .footer {
+                padding: 1.5rem 0 1rem 0;
+                font-size: 0.75rem;
+            }
+            .footer .footer-logo img {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar-brand-custom span {
+                font-size: 0.95rem;
+            }
+            .navbar-brand-custom img {
+                width: 30px;
+                height: 30px;
+            }
+            .table thead th,
+            .table tbody td {
+                font-size: 0.6rem;
+                padding: 4px 6px;
+            }
+            .badge-rol {
+                font-size: 0.5rem;
+                padding: 2px 6px;
+            }
+            .btn-accion {
+                width: 24px;
+                height: 24px;
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="navbar-container">
+                <a href="/dashboard" class="navbar-brand-custom">
+                    <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+                    <span><i class="fas fa-utensils"></i> Pollos Guevara</span>
+                </a>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <span class="nav-user">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="d-none d-sm-inline">{{ session.user_correo }}</span>
+                    </span>
+                    <a href="/logout" class="btn-logout" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="d-none d-sm-inline">Cerrar Sesión</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    CONTENIDO PRINCIPAL
+    ============================================================ -->
+    <main class="container mt-4">
+
+        <!-- ============================================================
+        CABECERA
+        ============================================================ -->
+        <div class="page-header">
+            <h2><i class="fas fa-users"></i> Usuarios</h2>
+            <div class="acciones">
+                <a href="/dashboard" class="btn-volver">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+                <a href="/usuarios/nuevo" class="btn-nuevo">
+                    <i class="fas fa-plus"></i> Nuevo Usuario
+                </a>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ALERTAS
+        ============================================================ -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- ============================================================
+        TABLA DE USUARIOS
+        ============================================================ -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.id }}</td>
+                            <td><strong>{{ usuario.nombre }}</strong></td>
+                            <td>{{ usuario.correo }}</td>
+                            <td>
+                                <span class="badge-rol badge-rol-{{ usuario.rol }}">
+                                    <i class="fas fa-{{ 'user-shield' if usuario.rol == 'admin' else 'user' }}"></i>
+                                    {{ usuario.rol|capitalize }}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a href="/usuarios/editar/{{ usuario.id }}" class="btn-accion btn-accion-editar" title="Editar usuario">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/usuarios/eliminar/{{ usuario.id }}" class="btn-accion btn-accion-eliminar" title="Eliminar usuario" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if not usuarios %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                <i class="fas fa-inbox"></i> No hay usuarios registrados
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+            </div>
+            <p>
+                <i class="fas fa-copyright"></i> Pollos Guevara 2026 —
+                <i class="fas fa-map-marker-alt"></i> Cochabamba, Bolivia
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>

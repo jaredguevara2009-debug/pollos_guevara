@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ============ META ============ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Sistema de gestión Pollos Guevara - Login" />
+    <meta name="author" content="Pollos Guevara" />
+
+    <!-- ============ TÍTULO ============ -->
+    <title>Login | Pollos Guevara</title>
+
+    <!-- ============ BOOTSTRAP ============ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ============ FONT AWESOME ============ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- ============ ESTILOS PERSONALIZADOS ============ -->
+    <style>
+        /* ============================================================
+                   RESET Y GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #E63946 0%, #F4A261 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* ============================================================
+                   TARJETA DE LOGIN
+                   ============================================================ */
+        .login-card {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 2.8rem 2.2rem;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+            max-width: 420px;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Línea decorativa superior */
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #E63946, #F4A261, #E63946);
+            background-size: 200% 100%;
+            animation: gradientMove 3s ease infinite;
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hover en la tarjeta */
+        .login-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.45);
+        }
+
+        /* ============================================================
+                   LOGO
+                   ============================================================ */
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo .logo-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
+        .logo .logo-wrapper img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #E63946;
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.35);
+            transition: all 0.4s ease;
+            background: white;
+        }
+
+        .logo .logo-wrapper img:hover {
+            transform: scale(1.08) rotate(-4deg);
+            box-shadow: 0 12px 40px rgba(230, 57, 70, 0.50);
+            border-color: #F4A261;
+        }
+
+        .logo .logo-wrapper .logo-ring {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #F4A261;
+            border-bottom-color: #E63946;
+            animation: spinRing 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo h2 {
+            color: #E63946;
+            font-weight: 800;
+            font-size: 2rem;
+            margin-top: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .logo h2:hover {
+            color: #C62828;
+            transform: scale(1.02);
+        }
+
+        .logo p {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .logo p i {
+            color: #E63946;
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+                   FORMULARIO
+                   ============================================================ */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: #E63946;
+            width: 18px;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 14px;
+            padding: 13px 18px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            background: #fafafa;
+            width: 100%;
+        }
+
+        .form-control::placeholder {
+            color: #bbb;
+            font-weight: 300;
+        }
+
+        .form-control:focus {
+            border-color: #E63946;
+            box-shadow: 0 0 0 0.25rem rgba(230, 57, 70, 0.15);
+            background: #ffffff;
+            outline: none;
+        }
+
+        /* ============================================================
+                   BOTÓN LOGIN
+                   ============================================================ */
+        .btn-login {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 20px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .btn-login::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn-login:hover::after {
+            opacity: 1;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.40);
+        }
+
+        .btn-login:active {
+            transform: translateY(0px);
+        }
+
+        .btn-login i {
+            font-size: 1.1rem;
+        }
+
+        /* ============================================================
+                   ALERTA DE ERROR
+                   ============================================================ */
+        .alert {
+            border-radius: 14px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .alert-danger {
+            background: #fde8ea;
+            color: #c62828;
+            border-left: 4px solid #E63946;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+            color: #E63946;
+        }
+
+        /* ============================================================
+                   DEMO INFO
+                   ============================================================ */
+        .demo-info {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #aaa;
+            border-top: 2px solid #f0f0f0;
+            padding-top: 1.2rem;
+        }
+
+        .demo-info span {
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #E63946;
+            font-size: 0.85rem;
+        }
+
+        .demo-info span:first-child {
+            margin-right: 4px;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        /* Tablets */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 2.4rem 1.8rem;
+                max-width: 380px;
+            }
+
+            .logo .logo-wrapper img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn-login {
+                font-size: 1rem;
+                padding: 13px 18px;
+            }
+        }
+
+        /* Celulares */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 1.8rem 1.3rem;
+                border-radius: 24px;
+            }
+
+            .logo .logo-wrapper img {
+                width: 80px;
+                height: 80px;
+                border-width: 3px;
+            }
+
+            .logo h2 {
+                font-size: 1.5rem;
+                margin-top: 0.6rem;
+            }
+
+            .logo p {
+                font-size: 0.85rem;
+            }
+
+            .form-control {
+                font-size: 0.95rem;
+                padding: 11px 15px;
+            }
+
+            .form-label {
+                font-size: 0.85rem;
+            }
+
+            .btn-login {
+                font-size: 0.95rem;
+                padding: 12px 16px;
+                border-radius: 12px;
+            }
+
+            .demo-info {
+                font-size: 0.75rem;
+            }
+
+            .demo-info span {
+                padding: 3px 10px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Celulares muy pequeños */
+        @media (max-width: 360px) {
+            .login-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .logo .logo-wrapper img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .logo h2 {
+                font-size: 1.3rem;
+            }
+
+            .btn-login {
+                font-size: 0.85rem;
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+
+        <!-- ============================================================
+        LOGO
+        ============================================================ -->
+        <div class="logo">
+            <div class="logo-wrapper">
+                <img
+                    src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
+                    alt="Pollos Guevara - Logo"
+                    title="Pollos Guevara"
+                    loading="lazy"
+                />
+                <div class="logo-ring"></div>
+            </div>
+            <h2>Pollos Guevara</h2>
+            <p><i class="fas fa-star"></i> La mejor pollería de Bolivia <i class="fas fa-star"></i></p>
+        </div>
+
+        <!-- ============================================================
+        MENSAJE DE ERROR
+        ============================================================ -->
+        {% if error %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ error }}</span>
+            </div>
+        {% endif %}
+
+        <!-- ============================================================
+        FORMULARIO DE LOGIN
+        ============================================================ -->
+        <form method="POST" action="/login" autocomplete="off">
+
+            <!-- Correo -->
+            <div class="form-group">
+                <label class="form-label" for="correo">
+                    <i class="fas fa-envelope"></i> Correo Electrónico
+                </label>
+                <input
+                    type="email"
+                    name="correo"
+                    id="correo"
+                    class="form-control"
+                    placeholder="admin@pollos.com"
+                    value="admin@pollos.com"
+                    required
+                    autofocus
+                />
+            </div>
+
+            <!-- Contraseña -->
+            <div class="form-group">
+                <label class="form-label" for="password">
+                    <i class="fas fa-lock"></i> Contraseña
+                </label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="••••••••"
+                    value="admin123"
+                    required
+                />
+            </div>
+
+            <!-- Botón -->
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i>
+                Ingresar
+            </button>
+
+        </form>
+
+        <!-- ============================================================
+        DEMO INFO
+        ============================================================ -->
+        <div class="demo-info">
+            <small>
+                Demo: <span>admin@pollos.com</span> / <span>admin123</span>
+            </small>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>

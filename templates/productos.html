@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ============ META ============ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Gestión de productos - Pollos Guevara" />
+    <meta name="author" content="Pollos Guevara" />
+
+    <!-- ============ TÍTULO ============ -->
+    <title>Productos | Pollos Guevara</title>
+
+    <!-- ============ BOOTSTRAP ============ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ============ FONT AWESOME ============ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- ============ ESTILOS PERSONALIZADOS ============ -->
+    <style>
+        /* ============================================================
+                   RESET Y GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================================
+                   NAVBAR
+                   ============================================================ */
+        .navbar-custom {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+            padding: 14px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.18);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom:hover {
+            transform: scale(1.02);
+        }
+
+        .navbar-brand-custom img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand-custom img:hover {
+            border-color: #ffffff;
+            transform: rotate(-6deg) scale(1.05);
+        }
+
+        .navbar-brand-custom span {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.30);
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand-custom span i {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        .nav-user {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-user:hover {
+            background: rgba(255, 255, 255, 0.20);
+        }
+
+        .nav-user i {
+            font-size: 1.1rem;
+        }
+
+        .btn-logout {
+            border-radius: 30px;
+            padding: 6px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.50);
+            color: #ffffff;
+            background: transparent;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: #ffffff;
+            color: #E63946;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+        }
+
+        .btn-logout i {
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   CABECERA DE PÁGINA
+                   ============================================================ */
+        .page-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            gap: 12px;
+            background: white;
+            padding: 1.2rem 1.8rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .page-header h2 {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        .page-header h2 i {
+            color: #2A9D8F;
+            margin-right: 12px;
+        }
+
+        .btn-volver {
+            border-radius: 30px;
+            padding: 0.45rem 1.4rem;
+            background: #6c757d;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-volver:hover {
+            background: #5a6268;
+            transform: translateX(-4px);
+            color: white;
+        }
+
+        .btn-nuevo {
+            border-radius: 30px;
+            padding: 0.45rem 1.6rem;
+            background: #2A9D8F;
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nuevo:hover {
+            background: #21867A;
+            transform: scale(1.03);
+            color: white;
+        }
+
+        /* ============================================================
+                   BUSCADOR
+                   ============================================================ */
+        .search-container {
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .search-box {
+            border-radius: 30px;
+            padding: 10px 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            width: 100%;
+            background: white;
+        }
+
+        .search-box:focus {
+            border-color: #E63946;
+            box-shadow: 0 0 0 0.2rem rgba(230, 57, 70, 0.15);
+            outline: none;
+        }
+
+        .btn-search {
+            border-radius: 30px;
+            padding: 0.45rem 1.4rem;
+            background: #E63946;
+            color: white;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background: #C62828;
+            transform: scale(1.03);
+        }
+
+        /* ============================================================
+                   CATEGORÍAS
+                   ============================================================ */
+        .categoria-titulo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 2.2rem 0 1.2rem 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #E63946;
+        }
+
+        .categoria-titulo .cat-icon {
+            font-size: 2rem;
+            width: 44px;
+            text-align: center;
+        }
+
+        .categoria-titulo h4 {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .categoria-titulo .badge-count {
+            background: #E63946;
+            color: white;
+            border-radius: 20px;
+            padding: 2px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        /* ============================================================
+                   TARJETAS DE PRODUCTOS
+                   ============================================================ */
+        .producto-card {
+            border: none;
+            border-radius: 18px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .producto-card .card-img-top {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            background: #f8f9fa;
+            transition: all 0.4s ease;
+            padding: 10px;
+        }
+
+        .producto-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .producto-card .card-body {
+            padding: 1rem 1.2rem 1.2rem;
+        }
+
+        .producto-card .card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #1A1A1A;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 44px;
+        }
+
+        .producto-card .precio {
+            font-weight: 700;
+            color: #E63946;
+            font-size: 1.15rem;
+        }
+
+        .producto-card .stock-badge {
+            font-size: 0.7rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stock-badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .stock-badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .stock-badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .producto-card .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .btn-accion {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+
+        .btn-accion:hover {
+            transform: scale(1.12);
+        }
+
+        .btn-accion-editar {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-accion-editar:hover {
+            background: #e0a800;
+            color: #212529;
+        }
+
+        .btn-accion-eliminar {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-accion-eliminar:hover {
+            background: #b02a37;
+            color: white;
+        }
+
+        /* ============================================================
+                   ALERTAS
+                   ============================================================ */
+        .alert {
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border: none;
+            margin-bottom: 1.2rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            margin-top: auto;
+            padding: 2.5rem 0 1.5rem 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            border-top: 1px solid #e9ecef;
+            margin-top: 3rem;
+        }
+
+        .footer .footer-logo {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer .footer-logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .footer .footer-logo img:hover {
+            transform: scale(1.10);
+            border-color: #2A9D8F;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        .footer p i {
+            color: #2A9D8F;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .navbar-brand-custom span {
+                font-size: 1.3rem;
+            }
+            .navbar-brand-custom img {
+                width: 42px;
+                height: 42px;
+            }
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem 1.2rem;
+            }
+            .page-header .acciones {
+                display: flex;
+                gap: 10px;
+            }
+            .page-header .acciones .btn-volver,
+            .page-header .acciones .btn-nuevo {
+                flex: 1;
+                justify-content: center;
+            }
+            .search-container {
+                max-width: 100%;
+            }
+            .producto-card .card-img-top {
+                font-size: 3.5rem;
+                height: 110px;
+            }
+            .categoria-titulo {
+                margin-top: 1.8rem;
+            }
+            .categoria-titulo h4 {
+                font-size: 1.1rem;
+            }
+            .categoria-titulo .cat-icon {
+                font-size: 1.6rem;
+                width: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand-custom span {
+                font-size: 1.1rem;
+            }
+            .navbar-brand-custom img {
+                width: 36px;
+                height: 36px;
+                border-width: 2px;
+            }
+            .navbar-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .nav-user {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .btn-logout {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .btn-logout span {
+                display: none;
+            }
+            .page-header {
+                padding: 0.8rem 1rem;
+                border-radius: 16px;
+            }
+            .page-header h2 {
+                font-size: 1.2rem;
+            }
+            .btn-volver,
+            .btn-nuevo {
+                font-size: 0.75rem;
+                padding: 0.35rem 1rem;
+            }
+            .search-box {
+                font-size: 0.85rem;
+                padding: 8px 14px;
+            }
+            .categoria-titulo {
+                margin-top: 1.5rem;
+                gap: 10px;
+            }
+            .categoria-titulo .cat-icon {
+                font-size: 1.3rem;
+                width: 30px;
+            }
+            .categoria-titulo h4 {
+                font-size: 0.95rem;
+            }
+            .categoria-titulo .badge-count {
+                font-size: 0.7rem;
+                padding: 1px 10px;
+            }
+            .producto-card .card-img-top {
+                font-size: 2.8rem;
+                height: 85px;
+                padding: 6px;
+            }
+            .producto-card .card-body {
+                padding: 0.7rem 0.8rem 0.9rem;
+            }
+            .producto-card .card-title {
+                font-size: 0.8rem;
+                min-height: 36px;
+            }
+            .producto-card .precio {
+                font-size: 0.95rem;
+            }
+            .producto-card .stock-badge {
+                font-size: 0.6rem;
+                padding: 2px 8px;
+            }
+            .btn-accion {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+            .footer {
+                padding: 1.5rem 0 1rem 0;
+                font-size: 0.75rem;
+            }
+            .footer .footer-logo img {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar-brand-custom span {
+                font-size: 0.95rem;
+            }
+            .navbar-brand-custom img {
+                width: 30px;
+                height: 30px;
+            }
+            .producto-card .card-img-top {
+                font-size: 2.2rem;
+                height: 70px;
+            }
+            .producto-card .card-title {
+                font-size: 0.7rem;
+                min-height: 30px;
+            }
+            .producto-card .precio {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="navbar-container">
+                <a href="/dashboard" class="navbar-brand-custom">
+                    <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+                    <span><i class="fas fa-utensils"></i> Pollos Guevara</span>
+                </a>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <span class="nav-user">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="d-none d-sm-inline">{{ session.user_correo }}</span>
+                    </span>
+                    <a href="/logout" class="btn-logout" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="d-none d-sm-inline">Cerrar Sesión</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    CONTENIDO PRINCIPAL
+    ============================================================ -->
+    <main class="container mt-4">
+
+        <!-- ============================================================
+        CABECERA
+        ============================================================ -->
+        <div class="page-header">
+            <h2><i class="fas fa-drumstick-bite"></i> Productos</h2>
+            <div class="acciones">
+                <a href="/dashboard" class="btn-volver">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+                <a href="/productos/nuevo" class="btn-nuevo">
+                    <i class="fas fa-plus"></i> Nuevo Producto
+                </a>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ALERTAS
+        ============================================================ -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-circle' }}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- ============================================================
+        BUSCADOR
+        ============================================================ -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <form action="/productos/buscar" method="GET" class="d-flex gap-2">
+                    <input
+                        type="text"
+                        name="q"
+                        class="search-box"
+                        placeholder="🔍 Buscar productos..."
+                        value="{{ request.args.get('q', '') }}"
+                        autofocus
+                    />
+                    <button type="submit" class="btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        CATEGORÍAS Y PRODUCTOS
+        ============================================================ -->
+
+        <!-- ===== POLLOS 🍗 ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🍗</span>
+            <h4>Pollos</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'pollos')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'pollos' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🍗</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ===== COMBOS 🍽️ ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🍽️</span>
+            <h4>Combos</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'combos')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'combos' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🍽️</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ===== PAPAS 🍟 ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🍟</span>
+            <h4>Papas</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'papas')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'papas' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🍟</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ===== REFRESCOS 🥤 ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🥤</span>
+            <h4>Refrescos</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'refrescos')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'refrescos' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🥤</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ===== POSTRES 🍦 ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🍦</span>
+            <h4>Postres</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'postres')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'postres' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🍦</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ===== SALSAS 🌶️ ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🌶️</span>
+            <h4>Salsas</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'salsas')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'salsas' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🌶️</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ===== EXTRAS 🥖 ===== -->
+        <div class="categoria-titulo">
+            <span class="cat-icon">🥖</span>
+            <h4>Extras</h4>
+            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'extras')|list|length }}</span>
+        </div>
+        <div class="row g-3">
+            {% for producto in productos if producto.categoria == 'extras' %}
+            <div class="col-6 col-md-3 col-lg-2">
+                <div class="card producto-card">
+                    <div class="card-img-top">🥖</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{ producto.nombre }}</h6>
+                        <p class="precio">Bs {{ producto.precio }}</p>
+                        <div class="card-actions">
+                            <span class="stock-badge
+                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                <i class="fas fa-box"></i> {{ producto.stock }}
+                            </span>
+                            <div class="d-flex gap-1">
+                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+            </div>
+            <p>
+                <i class="fas fa-copyright"></i> Pollos Guevara 2026 —
+                <i class="fas fa-map-marker-alt"></i> Cochabamba, Bolivia
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>

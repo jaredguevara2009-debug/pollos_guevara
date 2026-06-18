@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ============ META ============ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Panel de control - Pollos Guevara" />
+    <meta name="author" content="Pollos Guevara" />
+
+    <!-- ============ TÍTULO ============ -->
+    <title>Dashboard | Pollos Guevara</title>
+
+    <!-- ============ BOOTSTRAP ============ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ============ FONT AWESOME ============ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- ============ ESTILOS PERSONALIZADOS ============ -->
+    <style>
+        /* ============================================================
+                   RESET Y GLOBAL
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================================================
+                   NAVBAR
+                   ============================================================ */
+        .navbar-custom {
+            background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
+            padding: 14px 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.18);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand-custom:hover {
+            transform: scale(1.02);
+        }
+
+        .navbar-brand-custom img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand-custom img:hover {
+            border-color: #ffffff;
+            transform: rotate(-6deg) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .navbar-brand-custom span {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.30);
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-brand-custom span i {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+
+        /* ============================================================
+                   NAVBAR - USUARIO Y LOGOUT
+                   ============================================================ */
+        .nav-user {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-user:hover {
+            background: rgba(255, 255, 255, 0.20);
+        }
+
+        .nav-user i {
+            font-size: 1.1rem;
+        }
+
+        .btn-logout {
+            border-radius: 30px;
+            padding: 6px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.50);
+            color: #ffffff;
+            background: transparent;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: #ffffff;
+            color: #E63946;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+        }
+
+        .btn-logout i {
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   BANNER DE BIENVENIDA
+                   ============================================================ */
+        .welcome-banner {
+            background: linear-gradient(135deg, #E63946 0%, #F4A261 100%);
+            color: #ffffff;
+            border-radius: 24px;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 10px 35px rgba(230, 57, 70, 0.30);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-banner:hover {
+            box-shadow: 0 15px 45px rgba(230, 57, 70, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .welcome-banner .text-content h1 {
+            font-weight: 700;
+            font-size: 1.9rem;
+            margin-bottom: 4px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .welcome-banner .text-content p {
+            opacity: 0.90;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+            font-weight: 400;
+        }
+
+        .welcome-banner .text-content p i {
+            margin-right: 6px;
+        }
+
+        .welcome-banner .logo-banner {
+            flex-shrink: 0;
+        }
+
+        .welcome-banner .logo-banner img {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3.5px solid rgba(255, 255, 255, 0.50);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.20);
+            transition: all 0.4s ease;
+        }
+
+        .welcome-banner .logo-banner img:hover {
+            transform: scale(1.08) rotate(-4deg);
+            border-color: #ffffff;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.30);
+        }
+
+        /* ============================================================
+                   TARJETAS DEL DASHBOARD
+                   ============================================================ */
+        .card-dashboard {
+            border: none;
+            border-radius: 22px;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: #ffffff;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            height: 100%;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-dashboard::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #E63946, #F4A261);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card-dashboard:hover::after {
+            transform: scaleX(1);
+        }
+
+        .card-dashboard:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
+        }
+
+        .card-dashboard .card-body {
+            padding: 2.2rem 1.8rem;
+            text-align: center;
+        }
+
+        .card-dashboard .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: all 0.4s ease;
+        }
+
+        .card-dashboard:hover .card-icon {
+            transform: scale(1.12) rotate(-4deg);
+        }
+
+        .card-dashboard .card-title {
+            font-weight: 700;
+            color: #1A1A1A;
+            font-size: 1.15rem;
+            margin-bottom: 4px;
+        }
+
+        .card-dashboard .card-text {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .btn-card {
+            border-radius: 30px;
+            padding: 0.55rem 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary-card {
+            background: #E63946;
+            color: #ffffff;
+        }
+        .btn-primary-card:hover {
+            background: #C62828;
+            color: #ffffff;
+        }
+
+        .btn-success-card {
+            background: #2A9D8F;
+            color: #ffffff;
+        }
+        .btn-success-card:hover {
+            background: #21867A;
+            color: #ffffff;
+        }
+
+        .btn-warning-card {
+            background: #F4A261;
+            color: #ffffff;
+        }
+        .btn-warning-card:hover {
+            background: #E76F51;
+            color: #ffffff;
+        }
+
+        /* ============================================================
+                   QR SECTION
+                   ============================================================ */
+        .qr-section {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .qr-section:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.10);
+            transform: translateY(-3px);
+        }
+
+        .qr-section p {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .qr-section p i {
+            color: #E63946;
+            margin-right: 8px;
+        }
+
+        .qr-section img {
+            max-width: 160px;
+            border-radius: 14px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .qr-section img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .qr-section .url-text {
+            color: #999;
+            font-size: 0.85rem;
+            word-break: break-all;
+            margin-top: 12px;
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            margin-top: auto;
+            padding: 2.5rem 0 1.5rem 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.85rem;
+            border-top: 1px solid #e9ecef;
+            margin-top: 3rem;
+        }
+
+        .footer .footer-logo {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer .footer-logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .footer .footer-logo img:hover {
+            transform: scale(1.10);
+            border-color: #E63946;
+        }
+
+        .footer p {
+            margin-bottom: 0;
+        }
+
+        .footer p i {
+            color: #E63946;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        /* Tablets */
+        @media (max-width: 768px) {
+            .navbar-brand-custom span {
+                font-size: 1.3rem;
+            }
+            .navbar-brand-custom img {
+                width: 42px;
+                height: 42px;
+            }
+            .welcome-banner {
+                padding: 1.6rem 1.8rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+            .welcome-banner .text-content h1 {
+                font-size: 1.5rem;
+            }
+            .welcome-banner .text-content p {
+                font-size: 0.95rem;
+            }
+            .welcome-banner .logo-banner img {
+                width: 70px;
+                height: 70px;
+            }
+            .card-dashboard .card-body {
+                padding: 1.6rem 1.2rem;
+            }
+            .card-dashboard .card-icon {
+                font-size: 2.8rem;
+            }
+            .btn-card {
+                font-size: 0.8rem;
+                padding: 0.45rem 1.5rem;
+            }
+            .qr-section img {
+                max-width: 130px;
+            }
+        }
+
+        /* Celulares */
+        @media (max-width: 480px) {
+            .navbar-brand-custom span {
+                font-size: 1.1rem;
+            }
+            .navbar-brand-custom img {
+                width: 36px;
+                height: 36px;
+                border-width: 2px;
+            }
+            .navbar-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .nav-user {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .btn-logout {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+            .btn-logout span {
+                display: none;
+            }
+            .welcome-banner {
+                padding: 1.2rem 1rem;
+                border-radius: 18px;
+            }
+            .welcome-banner .text-content h1 {
+                font-size: 1.2rem;
+            }
+            .welcome-banner .text-content p {
+                font-size: 0.85rem;
+            }
+            .welcome-banner .logo-banner img {
+                width: 55px;
+                height: 55px;
+            }
+            .card-dashboard .card-body {
+                padding: 1.2rem 0.8rem;
+            }
+            .card-dashboard .card-icon {
+                font-size: 2.2rem;
+                margin-bottom: 0.6rem;
+            }
+            .card-dashboard .card-title {
+                font-size: 0.85rem;
+            }
+            .card-dashboard .card-text {
+                font-size: 0.75rem;
+                margin-bottom: 0.8rem;
+            }
+            .btn-card {
+                font-size: 0.7rem;
+                padding: 0.35rem 1rem;
+                border-radius: 20px;
+            }
+            .qr-section {
+                padding: 1.2rem 1rem;
+            }
+            .qr-section p {
+                font-size: 0.9rem;
+            }
+            .qr-section img {
+                max-width: 100px;
+            }
+            .qr-section .url-text {
+                font-size: 0.7rem;
+                padding: 4px 10px;
+            }
+            .footer {
+                padding: 1.5rem 0 1rem 0;
+                font-size: 0.75rem;
+            }
+            .footer .footer-logo img {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+        /* Celulares muy pequeños */
+        @media (max-width: 360px) {
+            .navbar-brand-custom span {
+                font-size: 0.95rem;
+            }
+            .navbar-brand-custom img {
+                width: 30px;
+                height: 30px;
+            }
+            .welcome-banner .text-content h1 {
+                font-size: 1rem;
+            }
+            .card-dashboard .card-icon {
+                font-size: 1.8rem;
+            }
+            .card-dashboard .card-title {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ============================================================
+                   UTILIDADES ADICIONALES
+                   ============================================================ */
+        .text-ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        .gap-3 {
+            gap: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            width: 100%;
+        }
+
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar-custom">
+        <div class="container">
+            <div class="navbar-container">
+                <!-- Logo y nombre -->
+                <a href="/dashboard" class="navbar-brand-custom">
+                    <img
+                        src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
+                        alt="Pollos Guevara"
+                        title="Pollos Guevara"
+                        loading="lazy"
+                    />
+                    <span><i class="fas fa-utensils"></i> Pollos Guevara</span>
+                </a>
+
+                <!-- Usuario y Logout -->
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <span class="nav-user">
+                        <i class="fas fa-user-circle"></i>
+                        <span class="d-none d-sm-inline">{{ session.user_correo }}</span>
+                    </span>
+                    <a href="/logout" class="btn-logout" title="Cerrar Sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="d-none d-sm-inline">Cerrar Sesión</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    CONTENIDO PRINCIPAL
+    ============================================================ -->
+    <main class="container mt-4">
+
+        <!-- ============================================================
+        BANNER DE BIENVENIDA
+        ============================================================ -->
+        <section class="welcome-banner">
+            <div class="text-content">
+                <h1>¡Bienvenido a Pollos Guevara! 🐔</h1>
+                <p><i class="fas fa-star"></i> Sistema de Gestión — La mejor pollería de Bolivia <i class="fas fa-star"></i></p>
+            </div>
+            <div class="logo-banner">
+                <img
+                    src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
+                    alt="Logo Pollos Guevara"
+                    title="Pollos Guevara"
+                    loading="lazy"
+                />
+            </div>
+        </section>
+
+        <!-- ============================================================
+        TARJETAS DEL DASHBOARD
+        ============================================================ -->
+        <section class="row g-4 mb-4">
+            <!-- Tarjeta: Usuarios -->
+            <div class="col-6 col-md-4">
+                <a href="/usuarios" class="text-decoration-none">
+                    <div class="card card-dashboard">
+                        <div class="card-body">
+                            <i class="fas fa-users card-icon" style="color: #E63946;"></i>
+                            <h5 class="card-title">Usuarios</h5>
+                            <p class="card-text">Gestiona los usuarios del sistema</p>
+                            <span class="btn btn-primary-card btn-card">
+                                <i class="fas fa-user-cog"></i> Gestionar
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Tarjeta: Productos -->
+            <div class="col-6 col-md-4">
+                <a href="/productos" class="text-decoration-none">
+                    <div class="card card-dashboard">
+                        <div class="card-body">
+                            <i class="fas fa-drumstick-bite card-icon" style="color: #2A9D8F;"></i>
+                            <h5 class="card-title">Productos</h5>
+                            <p class="card-text">Gestiona el menú y el stock</p>
+                            <span class="btn btn-success-card btn-card">
+                                <i class="fas fa-box"></i> Gestionar
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Tarjeta: Ventas -->
+            <div class="col-6 col-md-4">
+                <a href="/ventas" class="text-decoration-none">
+                    <div class="card card-dashboard">
+                        <div class="card-body">
+                            <i class="fas fa-shopping-cart card-icon" style="color: #F4A261;"></i>
+                            <h5 class="card-title">Ventas</h5>
+                            <p class="card-text">Registra nuevas ventas</p>
+                            <span class="btn btn-warning-card btn-card">
+                                <i class="fas fa-cash-register"></i> Registrar
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        QR SECTION
+        ============================================================ -->
+        <section class="row">
+            <div class="col-12">
+                <div class="qr-section">
+                    <p><i class="fas fa-qrcode"></i> Escanea para abrir desde tu celular</p>
+                    <img
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ request.url }}"
+                        alt="Código QR Pollos Guevara"
+                        title="Escanea para acceder desde tu móvil"
+                        loading="lazy"
+                    />
+                    <div class="url-text">
+                        <i class="fas fa-link"></i> {{ request.url }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img
+                    src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
+                    alt="Pollos Guevara"
+                    title="Pollos Guevara"
+                    loading="lazy"
+                />
+            </div>
+            <p>
+                <i class="fas fa-copyright"></i> Pollos Guevara 2026 —
+                <i class="fas fa-map-marker-alt"></i> Cochabamba, Bolivia
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>
