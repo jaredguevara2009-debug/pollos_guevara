@@ -6,9 +6,6 @@ import os
 from werkzeug.utils import secure_filename
 import time
 
-# ============================================================
-# INICIALIZACIÓN DE LA APLICACIÓN
-# ============================================================
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = Config.SECRET_KEY
@@ -21,20 +18,17 @@ print("🐔 Pollos Guevara iniciando...")
 UPLOAD_FOLDER = 'static/img/productos'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB máximo
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 def allowed_file(filename):
-    """Verifica si la extensión del archivo está permitida"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Crear carpeta si no existe
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # ============================================================
 # FUNCIONES DE BASE DE DATOS
 # ============================================================
 def get_connection():
-    """Retorna una conexión a la base de datos MySQL"""
     return mysql.connector.connect(
         host=Config.MYSQL_HOST,
         user=Config.MYSQL_USER,
@@ -44,7 +38,6 @@ def get_connection():
     )
 
 def hash_password(password):
-    """Retorna la contraseña en texto plano (para pruebas)"""
     return password
 
 # ============================================================
@@ -52,12 +45,10 @@ def hash_password(password):
 # ============================================================
 @app.route('/')
 def index():
-    """Página de inicio de sesión"""
     return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
-    """Procesa el inicio de sesión"""
     correo = request.form['correo']
     password = hash_password(request.form['password'])
     
@@ -78,7 +69,6 @@ def login():
 
 @app.route('/logout')
 def logout():
-    """Cierra la sesión del usuario"""
     session.clear()
     return redirect(url_for('index'))
 
@@ -87,7 +77,6 @@ def logout():
 # ============================================================
 @app.route('/dashboard')
 def dashboard():
-    """Página principal del sistema"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
     return render_template('dashboard.html')
@@ -97,10 +86,8 @@ def dashboard():
 # ============================================================
 @app.route('/usuarios')
 def listar_usuarios():
-    """Lista todos los usuarios"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM usuarios ORDER BY id DESC")
@@ -111,10 +98,8 @@ def listar_usuarios():
 
 @app.route('/usuarios/nuevo', methods=['GET', 'POST'])
 def nuevo_usuario():
-    """Crea un nuevo usuario"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    
     if request.method == 'POST':
         nombre = request.form['nombre']
         correo = request.form['correo']
@@ -138,15 +123,12 @@ def nuevo_usuario():
             cursor.close()
             conn.close()
         return redirect(url_for('listar_usuarios'))
-    
     return render_template('usuario_form.html', usuario=None)
 
 @app.route('/usuarios/editar/<int:id>', methods=['GET', 'POST'])
 def editar_usuario(id):
-    """Edita un usuario existente"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     
@@ -187,10 +169,8 @@ def editar_usuario(id):
 
 @app.route('/usuarios/eliminar/<int:id>')
 def eliminar_usuario(id):
-    """Elimina un usuario"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM usuarios WHERE id = %s", (id,))
@@ -205,21 +185,23 @@ def eliminar_usuario(id):
 # ============================================================
 @app.route('/productos')
 def listar_productos():
-    """Lista todos los productos"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    
-    conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM productos ORDER BY id DESC")
-    productos = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return render_template('productos.html', productos=productos)
+    try:
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM productos ORDER BY id DESC")
+        productos = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return render_template('productos.html', productos=productos, busqueda=None)
+    except Exception as e:
+        print(f"❌ Error en listar_productos: {e}")
+        flash('❌ Error al cargar los productos', 'danger')
+        return render_template('productos.html', productos=[], busqueda=None)
 
 @app.route('/productos/nuevo', methods=['GET', 'POST'])
 def nuevo_producto():
-    """Crea un nuevo producto con imagen"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
     
@@ -227,10 +209,9 @@ def nuevo_producto():
         nombre = request.form['nombre']
         precio = request.form['precio']
         stock = request.form['stock']
-        categoria = request.form['categoria']
+        categoria = request.form.get('categoria', 'pollos')
         imagen = ''
         
-        # Procesar imagen
         if 'imagen' in request.files:
             file = request.files['imagen']
             if file and file.filename and allowed_file(file.filename):
@@ -259,7 +240,6 @@ def nuevo_producto():
 
 @app.route('/productos/editar/<int:id>', methods=['GET', 'POST'])
 def editar_producto(id):
-    """Edita un producto existente con opción de cambiar imagen"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
     
@@ -270,10 +250,9 @@ def editar_producto(id):
         nombre = request.form['nombre']
         precio = request.form['precio']
         stock = request.form['stock']
-        categoria = request.form['categoria']
+        categoria = request.form.get('categoria', 'pollos')
         imagen = request.form.get('imagen_actual', '')
         
-        # Procesar nueva imagen
         if 'imagen' in request.files:
             file = request.files['imagen']
             if file and file.filename and allowed_file(file.filename):
@@ -305,10 +284,8 @@ def editar_producto(id):
 
 @app.route('/productos/eliminar/<int:id>')
 def eliminar_producto(id):
-    """Elimina un producto"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM productos WHERE id = %s", (id,))
@@ -319,29 +296,38 @@ def eliminar_producto(id):
     return redirect(url_for('listar_productos'))
 
 # ============================================================
-# BUSCADOR DE PRODUCTOS
+# BUSCADOR DE PRODUCTOS (BUSCA TODOS CON "P")
 # ============================================================
 @app.route('/productos/buscar')
 def buscar_productos():
-    """Busca productos por nombre"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
     
-    busqueda = request.args.get('q', '')
+    busqueda = request.args.get('q', '').strip()
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM productos WHERE nombre LIKE %s", (f'%{busqueda}%',))
-    productos = cursor.fetchall()
-    cursor.close()
-    conn.close()
+    
+    try:
+        # Buscar productos que contengan el texto (insensible a mayúsculas)
+        cursor.execute(
+            "SELECT * FROM productos WHERE LOWER(nombre) LIKE LOWER(%s) OR LOWER(nombre) LIKE LOWER(%s)",
+            (f'%{busqueda}%', f'%{busqueda}%')
+        )
+        productos = cursor.fetchall()
+    except Exception as e:
+        print(f"❌ Error en buscar: {e}")
+        productos = []
+    finally:
+        cursor.close()
+        conn.close()
+    
     return render_template('productos.html', productos=productos, busqueda=busqueda)
 
 # ============================================================
-# MÓDULO DE VENTAS
+# VENTAS
 # ============================================================
 @app.route('/ventas', methods=['GET', 'POST'])
 def ventas():
-    """Registra ventas y descuenta stock"""
     if 'user_id' not in session:
         return redirect(url_for('index'))
     
@@ -358,13 +344,11 @@ def ventas():
         if producto and producto['stock'] >= cantidad:
             total = producto['precio'] * cantidad
             
-            # Registrar venta
             cursor.execute(
                 "INSERT INTO ventas (producto_id, cantidad, total) VALUES (%s, %s, %s)",
                 (producto_id, cantidad, total)
             )
             
-            # Descontar stock
             nuevo_stock = producto['stock'] - cantidad
             cursor.execute("UPDATE productos SET stock = %s WHERE id = %s", (nuevo_stock, producto_id))
             
@@ -377,11 +361,9 @@ def ventas():
         conn.close()
         return redirect(url_for('ventas'))
     
-    # GET: Mostrar productos disponibles
     cursor.execute("SELECT * FROM productos WHERE stock > 0 ORDER BY nombre")
     productos = cursor.fetchall()
     
-    # Historial de ventas
     cursor.execute("""
         SELECT v.*, p.nombre as producto_nombre 
         FROM ventas v 
@@ -395,8 +377,8 @@ def ventas():
     return render_template('ventas.html', productos=productos, ventas=ventas)
 
 # ============================================================
-# EJECUCIÓN DE LA APLICACIÓN
+# EJECUCIÓN
 # ============================================================
 if __name__ == '__main__':
-    print("🚀 Servidor ejecutándose en http://127.0.0.1:5000")
+    print("🚀 Servidor en http://127.0.0.1:5000")
     app.run(debug=True, host='0.0.0.0', port=5000)
