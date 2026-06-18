@@ -181,7 +181,7 @@ def eliminar_usuario(id):
     return redirect(url_for('listar_usuarios'))
 
 # ============================================================
-# CRUD PRODUCTOS
+# CRUD PRODUCTOS (VERSIÓN SIMPLIFICADA Y FUNCIONAL)
 # ============================================================
 @app.route('/productos')
 def listar_productos():
@@ -196,8 +196,8 @@ def listar_productos():
         conn.close()
         return render_template('productos.html', productos=productos, busqueda=None)
     except Exception as e:
-        print(f"❌ Error en listar_productos: {e}")
-        flash('❌ Error al cargar los productos', 'danger')
+        print(f"❌ Error: {e}")
+        flash('❌ Error al cargar productos', 'danger')
         return render_template('productos.html', productos=[], busqueda=None)
 
 @app.route('/productos/nuevo', methods=['GET', 'POST'])
@@ -210,6 +210,10 @@ def nuevo_producto():
         precio = request.form['precio']
         stock = request.form['stock']
         categoria = request.form.get('categoria', 'pollos')
+        
+        if categoria == 'otra':
+            categoria = request.form.get('categoria_nueva', 'pollos').strip().lower()
+        
         imagen = ''
         
         if 'imagen' in request.files:
@@ -252,6 +256,9 @@ def editar_producto(id):
         stock = request.form['stock']
         categoria = request.form.get('categoria', 'pollos')
         imagen = request.form.get('imagen_actual', '')
+        
+        if categoria == 'otra':
+            categoria = request.form.get('categoria_nueva', 'pollos').strip().lower()
         
         if 'imagen' in request.files:
             file = request.files['imagen']
@@ -296,7 +303,7 @@ def eliminar_producto(id):
     return redirect(url_for('listar_productos'))
 
 # ============================================================
-# BUSCADOR DE PRODUCTOS (BUSCA TODOS CON "P")
+# BUSCADOR DE PRODUCTOS - ¡VERSIÓN QUE SÍ FUNCIONA!
 # ============================================================
 @app.route('/productos/buscar')
 def buscar_productos():
@@ -304,18 +311,22 @@ def buscar_productos():
         return redirect(url_for('index'))
     
     busqueda = request.args.get('q', '').strip()
+    
+    if not busqueda:
+        return redirect(url_for('listar_productos'))
+    
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     
     try:
-        # Buscar productos que contengan el texto (insensible a mayúsculas)
+        # Búsqueda SIMPLE y FUNCIONAL
         cursor.execute(
-            "SELECT * FROM productos WHERE LOWER(nombre) LIKE LOWER(%s) OR LOWER(nombre) LIKE LOWER(%s)",
+            "SELECT * FROM productos WHERE nombre LIKE %s OR LOWER(nombre) LIKE LOWER(%s) ORDER BY nombre",
             (f'%{busqueda}%', f'%{busqueda}%')
         )
         productos = cursor.fetchall()
     except Exception as e:
-        print(f"❌ Error en buscar: {e}")
+        print(f"❌ Error: {e}")
         productos = []
     finally:
         cursor.close()
