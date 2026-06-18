@@ -81,7 +81,6 @@
         .navbar-brand-custom img:hover {
             border-color: #ffffff;
             transform: rotate(-6deg) scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .navbar-brand-custom span {
@@ -97,9 +96,6 @@
             margin-right: 4px;
         }
 
-        /* ============================================================
-                   NAVBAR - USUARIO Y LOGOUT
-                   ============================================================ */
         .nav-user {
             color: #ffffff;
             font-size: 0.95rem;
@@ -347,15 +343,18 @@
         }
 
         .qr-section img {
-            max-width: 160px;
+            width: 160px;
+            height: 160px;
             border-radius: 14px;
+            border: 3px solid #E63946;
+            padding: 6px;
+            background: white;
             transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
         .qr-section img:hover {
             transform: scale(1.06);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.20);
         }
 
         .qr-section .url-text {
@@ -364,9 +363,14 @@
             word-break: break-all;
             margin-top: 12px;
             background: #f8f9fa;
-            padding: 8px 16px;
+            padding: 6px 16px;
             border-radius: 12px;
             display: inline-block;
+        }
+
+        .qr-section .url-text i {
+            color: #E63946;
+            margin-right: 6px;
         }
 
         /* ============================================================
@@ -448,7 +452,8 @@
                 padding: 0.45rem 1.5rem;
             }
             .qr-section img {
-                max-width: 130px;
+                width: 130px;
+                height: 130px;
             }
         }
 
@@ -518,7 +523,8 @@
                 font-size: 0.9rem;
             }
             .qr-section img {
-                max-width: 100px;
+                width: 110px;
+                height: 110px;
             }
             .qr-section .url-text {
                 font-size: 0.7rem;
@@ -552,54 +558,10 @@
             .card-dashboard .card-title {
                 font-size: 0.75rem;
             }
-        }
-
-        /* ============================================================
-                   UTILIDADES ADICIONALES
-                   ============================================================ */
-        .text-ellipsis {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 150px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .gap-2 {
-            gap: 0.5rem;
-        }
-        .gap-3 {
-            gap: 1rem;
-        }
-
-        .mt-4 {
-            margin-top: 1.5rem;
-        }
-        .mb-4 {
-            margin-bottom: 1.5rem;
-        }
-        .mb-2 {
-            margin-bottom: 0.5rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-            width: 100%;
-        }
-
-        .flex-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .flex-between {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            .qr-section img {
+                width: 90px;
+                height: 90px;
+            }
         }
     </style>
 </head>
@@ -611,18 +573,10 @@
     <nav class="navbar-custom">
         <div class="container">
             <div class="navbar-container">
-                <!-- Logo y nombre -->
                 <a href="/dashboard" class="navbar-brand-custom">
-                    <img
-                        src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
-                        alt="Pollos Guevara"
-                        title="Pollos Guevara"
-                        loading="lazy"
-                    />
+                    <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
                     <span><i class="fas fa-utensils"></i> Pollos Guevara</span>
                 </a>
-
-                <!-- Usuario y Logout -->
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                     <span class="nav-user">
                         <i class="fas fa-user-circle"></i>
@@ -651,12 +605,7 @@
                 <p><i class="fas fa-star"></i> Sistema de Gestión — La mejor pollería de Bolivia <i class="fas fa-star"></i></p>
             </div>
             <div class="logo-banner">
-                <img
-                    src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
-                    alt="Logo Pollos Guevara"
-                    title="Pollos Guevara"
-                    loading="lazy"
-                />
+                <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Logo Pollos Guevara" title="Pollos Guevara" loading="lazy" />
             </div>
         </section>
 
@@ -720,12 +669,7 @@
             <div class="col-12">
                 <div class="qr-section">
                     <p><i class="fas fa-qrcode"></i> Escanea para abrir desde tu celular</p>
-                    <img
-                        src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ request.url }}"
-                        alt="Código QR Pollos Guevara"
-                        title="Escanea para acceder desde tu móvil"
-                        loading="lazy"
-                    />
+                    <img src="{{ url_for('static', filename='img/qr_pollos_guevara.png') }}" alt="Código QR Pollos Guevara" title="Escanea para acceder desde tu móvil" loading="lazy" />
                     <div class="url-text">
                         <i class="fas fa-link"></i> {{ request.url }}
                     </div>
@@ -741,12 +685,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">
-                <img
-                    src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}"
-                    alt="Pollos Guevara"
-                    title="Pollos Guevara"
-                    loading="lazy"
-                />
+                <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
             </div>
             <p>
                 <i class="fas fa-copyright"></i> Pollos Guevara 2026 —
