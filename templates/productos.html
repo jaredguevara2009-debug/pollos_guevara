@@ -1,33 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- ============ META ============ -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Gestión de productos - Pollos Guevara" />
-    <meta name="author" content="Pollos Guevara" />
-
-    <!-- ============ TÍTULO ============ -->
     <title>Productos | Pollos Guevara</title>
-
-    <!-- ============ BOOTSTRAP ============ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-    <!-- ============ FONT AWESOME ============ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
-    <!-- ============ ESTILOS PERSONALIZADOS ============ -->
     <style>
-        /* ============================================================
-                   RESET Y GLOBAL
-                   ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #f0f2f5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -35,19 +15,14 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* ============================================================
-                   NAVBAR
-                   ============================================================ */
         .navbar-custom {
             background: linear-gradient(135deg, #E63946 0%, #C62828 100%);
             padding: 14px 0;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.18);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-
         .navbar-container {
             display: flex;
             align-items: center;
@@ -55,7 +30,6 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .navbar-brand-custom {
             display: flex;
             align-items: center;
@@ -63,39 +37,31 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-
-        .navbar-brand-custom:hover {
-            transform: scale(1.02);
-        }
-
+        .navbar-brand-custom:hover { transform: scale(1.02); }
         .navbar-brand-custom img {
             width: 48px;
             height: 48px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            border: 2.5px solid rgba(255,255,255,0.35);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-
         .navbar-brand-custom img:hover {
             border-color: #ffffff;
             transform: rotate(-6deg) scale(1.05);
         }
-
         .navbar-brand-custom span {
             color: #ffffff;
             font-size: 1.6rem;
             font-weight: 700;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.30);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.30);
             letter-spacing: 0.5px;
         }
-
         .navbar-brand-custom span i {
             font-size: 1.2rem;
             margin-right: 4px;
         }
-
         .nav-user {
             color: #ffffff;
             font-size: 0.95rem;
@@ -103,24 +69,17 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255,255,255,0.12);
             padding: 6px 14px;
             border-radius: 30px;
             transition: all 0.3s ease;
         }
-
-        .nav-user:hover {
-            background: rgba(255, 255, 255, 0.20);
-        }
-
-        .nav-user i {
-            font-size: 1.1rem;
-        }
-
+        .nav-user:hover { background: rgba(255,255,255,0.20); }
+        .nav-user i { font-size: 1.1rem; }
         .btn-logout {
             border-radius: 30px;
             padding: 6px 18px;
-            border: 2px solid rgba(255, 255, 255, 0.50);
+            border: 2px solid rgba(255,255,255,0.50);
             color: #ffffff;
             background: transparent;
             transition: all 0.3s ease;
@@ -131,23 +90,15 @@
             align-items: center;
             gap: 8px;
         }
-
         .btn-logout:hover {
             background: #ffffff;
             color: #E63946;
             border-color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
             text-decoration: none;
         }
-
-        .btn-logout i {
-            font-size: 0.9rem;
-        }
-
-        /* ============================================================
-                   CABECERA DE PÁGINA
-                   ============================================================ */
+        .btn-logout i { font-size: 0.9rem; }
         .page-header {
             display: flex;
             flex-wrap: wrap;
@@ -158,21 +109,18 @@
             background: white;
             padding: 1.2rem 1.8rem;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
-
         .page-header h2 {
             font-weight: 700;
             color: #1A1A1A;
             margin: 0;
             font-size: 1.6rem;
         }
-
         .page-header h2 i {
             color: #2A9D8F;
             margin-right: 12px;
         }
-
         .btn-volver {
             border-radius: 30px;
             padding: 0.45rem 1.4rem;
@@ -187,13 +135,11 @@
             align-items: center;
             gap: 8px;
         }
-
         .btn-volver:hover {
             background: #5a6268;
             transform: translateX(-4px);
             color: white;
         }
-
         .btn-nuevo {
             border-radius: 30px;
             padding: 0.45rem 1.6rem;
@@ -208,21 +154,15 @@
             align-items: center;
             gap: 8px;
         }
-
         .btn-nuevo:hover {
             background: #21867A;
             transform: scale(1.03);
             color: white;
         }
-
-        /* ============================================================
-                   BUSCADOR
-                   ============================================================ */
         .search-container {
             max-width: 350px;
             width: 100%;
         }
-
         .search-box {
             border-radius: 30px;
             padding: 10px 20px;
@@ -232,13 +172,11 @@
             width: 100%;
             background: white;
         }
-
         .search-box:focus {
             border-color: #E63946;
-            box-shadow: 0 0 0 0.2rem rgba(230, 57, 70, 0.15);
+            box-shadow: 0 0 0 0.2rem rgba(230,57,70,0.15);
             outline: none;
         }
-
         .btn-search {
             border-radius: 30px;
             padding: 0.45rem 1.4rem;
@@ -248,15 +186,10 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
-
         .btn-search:hover {
             background: #C62828;
             transform: scale(1.03);
         }
-
-        /* ============================================================
-                   CATEGORÍAS
-                   ============================================================ */
         .categoria-titulo {
             display: flex;
             align-items: center;
@@ -265,20 +198,17 @@
             padding-bottom: 10px;
             border-bottom: 3px solid #E63946;
         }
-
         .categoria-titulo .cat-icon {
             font-size: 2rem;
             width: 44px;
             text-align: center;
         }
-
         .categoria-titulo h4 {
             font-weight: 700;
             color: #1A1A1A;
             margin: 0;
             font-size: 1.3rem;
         }
-
         .categoria-titulo .badge-count {
             background: #E63946;
             color: white;
@@ -288,26 +218,28 @@
             font-weight: 600;
             margin-left: auto;
         }
-
-        /* ============================================================
-                   TARJETAS DE PRODUCTOS (ACTUALIZADO CON IMÁGENES)
-                   ============================================================ */
+        .search-result-title {
+            background: #E63946;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
         .producto-card {
             border: none;
             border-radius: 18px;
             background: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             height: 100%;
             overflow: hidden;
             position: relative;
         }
-
         .producto-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
         }
-
         .producto-card .card-img-top {
             height: 130px;
             display: flex;
@@ -318,21 +250,17 @@
             padding: 10px;
             font-size: 4.5rem;
         }
-
         .producto-card:hover .card-img-top {
             transform: scale(1.05);
         }
-
         .producto-card .card-img-top img {
             max-height: 100%;
             max-width: 100%;
             object-fit: contain;
         }
-
         .producto-card .card-body {
             padding: 1rem 1.2rem 1.2rem;
         }
-
         .producto-card .card-title {
             font-weight: 600;
             font-size: 0.95rem;
@@ -344,13 +272,11 @@
             overflow: hidden;
             min-height: 44px;
         }
-
         .producto-card .precio {
             font-weight: 700;
             color: #E63946;
             font-size: 1.15rem;
         }
-
         .producto-card .stock-badge {
             font-size: 0.7rem;
             padding: 3px 12px;
@@ -360,20 +286,9 @@
             align-items: center;
             gap: 4px;
         }
-
-        .stock-badge-success {
-            background: #d4edda;
-            color: #155724;
-        }
-        .stock-badge-warning {
-            background: #fff3cd;
-            color: #856404;
-        }
-        .stock-badge-danger {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
+        .stock-badge-success { background: #d4edda; color: #155724; }
+        .stock-badge-warning { background: #fff3cd; color: #856404; }
+        .stock-badge-danger { background: #f8d7da; color: #721c24; }
         .producto-card .card-actions {
             display: flex;
             align-items: center;
@@ -382,7 +297,6 @@
             padding-top: 10px;
             border-top: 1px solid #f0f0f0;
         }
-
         .btn-accion {
             width: 34px;
             height: 34px;
@@ -395,32 +309,11 @@
             font-size: 0.8rem;
             text-decoration: none;
         }
-
-        .btn-accion:hover {
-            transform: scale(1.12);
-        }
-
-        .btn-accion-editar {
-            background: #ffc107;
-            color: #212529;
-        }
-        .btn-accion-editar:hover {
-            background: #e0a800;
-            color: #212529;
-        }
-
-        .btn-accion-eliminar {
-            background: #dc3545;
-            color: white;
-        }
-        .btn-accion-eliminar:hover {
-            background: #b02a37;
-            color: white;
-        }
-
-        /* ============================================================
-                   ALERTAS
-                   ============================================================ */
+        .btn-accion:hover { transform: scale(1.12); }
+        .btn-accion-editar { background: #ffc107; color: #212529; }
+        .btn-accion-editar:hover { background: #e0a800; color: #212529; }
+        .btn-accion-eliminar { background: #dc3545; color: white; }
+        .btn-accion-eliminar:hover { background: #b02a37; color: white; }
         .alert {
             border-radius: 14px;
             display: flex;
@@ -430,26 +323,9 @@
             border: none;
             margin-bottom: 1.2rem;
         }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
-        }
-
-        .alert i {
-            font-size: 1.2rem;
-        }
-
-        /* ============================================================
-                   FOOTER
-                   ============================================================ */
+        .alert-success { background: #d4edda; color: #155724; border-left: 4px solid #28a745; }
+        .alert-danger { background: #f8d7da; color: #721c24; border-left: 4px solid #dc3545; }
+        .alert i { font-size: 1.2rem; }
         .footer {
             margin-top: auto;
             padding: 2.5rem 0 1.5rem 0;
@@ -459,12 +335,10 @@
             border-top: 1px solid #e9ecef;
             margin-top: 3rem;
         }
-
         .footer .footer-logo {
             display: inline-block;
             margin-bottom: 10px;
         }
-
         .footer .footer-logo img {
             width: 48px;
             height: 48px;
@@ -473,50 +347,25 @@
             border: 2px solid #eee;
             transition: all 0.3s ease;
         }
-
         .footer .footer-logo img:hover {
             transform: scale(1.10);
             border-color: #2A9D8F;
         }
-
-        .footer p {
-            margin-bottom: 0;
-        }
-
-        .footer p i {
-            color: #2A9D8F;
-        }
-
-        /* ============================================================
-                   RESPONSIVE
-                   ============================================================ */
+        .footer p { margin-bottom: 0; }
+        .footer p i { color: #2A9D8F; }
         @media (max-width: 768px) {
             .navbar-brand-custom span { font-size: 1.3rem; }
             .navbar-brand-custom img { width: 42px; height: 42px; }
-            .page-header {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 1rem 1.2rem;
-            }
-            .page-header .acciones {
-                display: flex;
-                gap: 10px;
-            }
+            .page-header { flex-direction: column; align-items: stretch; padding: 1rem 1.2rem; }
+            .page-header .acciones { display: flex; gap: 10px; }
             .page-header .acciones .btn-volver,
-            .page-header .acciones .btn-nuevo {
-                flex: 1;
-                justify-content: center;
-            }
+            .page-header .acciones .btn-nuevo { flex: 1; justify-content: center; }
             .search-container { max-width: 100%; }
-            .producto-card .card-img-top {
-                font-size: 3.5rem;
-                height: 110px;
-            }
+            .producto-card .card-img-top { font-size: 3.5rem; height: 110px; }
             .categoria-titulo { margin-top: 1.8rem; }
             .categoria-titulo h4 { font-size: 1.1rem; }
             .categoria-titulo .cat-icon { font-size: 1.6rem; width: 36px; }
         }
-
         @media (max-width: 480px) {
             .navbar-brand-custom span { font-size: 1.1rem; }
             .navbar-brand-custom img { width: 36px; height: 36px; border-width: 2px; }
@@ -532,11 +381,7 @@
             .categoria-titulo .cat-icon { font-size: 1.3rem; width: 30px; }
             .categoria-titulo h4 { font-size: 0.95rem; }
             .categoria-titulo .badge-count { font-size: 0.7rem; padding: 1px 10px; }
-            .producto-card .card-img-top {
-                font-size: 2.8rem;
-                height: 85px;
-                padding: 6px;
-            }
+            .producto-card .card-img-top { font-size: 2.8rem; height: 85px; padding: 6px; }
             .producto-card .card-body { padding: 0.7rem 0.8rem 0.9rem; }
             .producto-card .card-title { font-size: 0.8rem; min-height: 36px; }
             .producto-card .precio { font-size: 0.95rem; }
@@ -545,14 +390,10 @@
             .footer { padding: 1.5rem 0 1rem 0; font-size: 0.75rem; }
             .footer .footer-logo img { width: 38px; height: 38px; }
         }
-
         @media (max-width: 360px) {
             .navbar-brand-custom span { font-size: 0.95rem; }
             .navbar-brand-custom img { width: 30px; height: 30px; }
-            .producto-card .card-img-top {
-                font-size: 2.2rem;
-                height: 70px;
-            }
+            .producto-card .card-img-top { font-size: 2.2rem; height: 70px; }
             .producto-card .card-title { font-size: 0.7rem; min-height: 30px; }
             .producto-card .precio { font-size: 0.8rem; }
         }
@@ -624,282 +465,383 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <form action="/productos/buscar" method="GET" class="d-flex gap-2">
-                    <input type="text" name="q" class="search-box" placeholder="🔍 Buscar productos..." value="{{ request.args.get('q', '') }}" autofocus />
+                    <input type="text" name="q" class="search-box" placeholder="🔍 Buscar productos..." value="{{ busqueda or '' }}" autofocus />
                     <button type="submit" class="btn-search">
                         <i class="fas fa-search"></i>
                     </button>
                 </form>
+                {% if busqueda %}
+                    <a href="/productos" class="btn btn-sm btn-outline-secondary mt-2">
+                        <i class="fas fa-times"></i> Limpiar búsqueda
+                    </a>
+                {% endif %}
             </div>
         </div>
 
         <!-- ============================================================
-        CATEGORÍAS Y PRODUCTOS (CON IMÁGENES)
+        CATEGORÍAS Y PRODUCTOS
         ============================================================ -->
 
-        <!-- ===== POLLOS 🍗 ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🍗</span>
-            <h4>Pollos</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'pollos')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'pollos' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🍗
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+        {% if busqueda %}
+            <!-- ===== MODO BÚSQUEDA ===== -->
+            <div class="search-result-title">
+                <i class="fas fa-search"></i> Resultados para: "{{ busqueda }}"
+                <span class="badge bg-light text-dark ms-2">{{ productos|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                {% if producto.categoria == 'pollos' %}🍗
+                                {% elif producto.categoria == 'combos' %}🍽️
+                                {% elif producto.categoria == 'papas' %}🍟
+                                {% elif producto.categoria == 'refrescos' %}🥤
+                                {% elif producto.categoria == 'postres' %}🍦
+                                {% elif producto.categoria == 'salsas' %}🌶️
+                                {% elif producto.categoria == 'extras' %}🥖
+                                {% else %}📦
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+                {% if not productos %}
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-search" style="font-size: 3rem; color: #ccc;"></i>
+                    <h5 class="mt-3 text-muted">No se encontraron productos</h5>
+                    <p class="text-muted">Prueba con otra palabra</p>
+                </div>
+                {% endif %}
             </div>
-            {% endfor %}
-        </div>
+        {% else %}
+            <!-- ===== MODO NORMAL (POR CATEGORÍAS) ===== -->
 
-        <!-- ===== COMBOS 🍽️ ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🍽️</span>
-            <h4>Combos</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'combos')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'combos' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🍽️
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+            <!-- POLLOS -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🍗</span>
+                <h4>Pollos</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'pollos')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'pollos' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🍗
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- ===== PAPAS 🍟 ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🍟</span>
-            <h4>Papas</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'papas')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'papas' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🍟
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+            <!-- COMBOS -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🍽️</span>
+                <h4>Combos</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'combos')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'combos' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🍽️
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- ===== REFRESCOS 🥤 ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🥤</span>
-            <h4>Refrescos</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'refrescos')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'refrescos' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🥤
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+            <!-- PAPAS -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🍟</span>
+                <h4>Papas</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'papas')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'papas' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🍟
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- ===== POSTRES 🍦 ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🍦</span>
-            <h4>Postres</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'postres')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'postres' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🍦
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+            <!-- REFRESCOS -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🥤</span>
+                <h4>Refrescos</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'refrescos')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'refrescos' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🥤
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- ===== SALSAS 🌶️ ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🌶️</span>
-            <h4>Salsas</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'salsas')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'salsas' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🌶️
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+            <!-- POSTRES -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🍦</span>
+                <h4>Postres</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'postres')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'postres' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🍦
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
 
-        <!-- ===== EXTRAS 🥖 ===== -->
-        <div class="categoria-titulo">
-            <span class="cat-icon">🥖</span>
-            <h4>Extras</h4>
-            <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'extras')|list|length }}</span>
-        </div>
-        <div class="row g-3">
-            {% for producto in productos if producto.categoria == 'extras' %}
-            <div class="col-6 col-md-3 col-lg-2">
-                <div class="card producto-card">
-                    <div class="card-img-top">
-                        {% if producto.imagen %}
-                            <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
-                        {% else %}
-                            🥖
-                        {% endif %}
+            <!-- SALSAS -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🌶️</span>
+                <h4>Salsas</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'salsas')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'salsas' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🌶️
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ producto.nombre }}</h6>
-                        <p class="precio">Bs {{ producto.precio }}</p>
-                        <div class="card-actions">
-                            <span class="stock-badge
-                                {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
-                                <i class="fas fa-box"></i> {{ producto.stock }}
-                            </span>
-                            <div class="d-flex gap-1">
-                                <a href="/productos/editar/{{ producto.id }}"
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- EXTRAS -->
+            <div class="categoria-titulo">
+                <span class="cat-icon">🥖</span>
+                <h4>Extras</h4>
+                <span class="badge-count">{{ productos|selectattr('categoria', 'equalto', 'extras')|list|length }}</span>
+            </div>
+            <div class="row g-3">
+                {% for producto in productos if producto.categoria == 'extras' %}
+                <div class="col-6 col-md-3 col-lg-2">
+                    <div class="card producto-card">
+                        <div class="card-img-top">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                🥖
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">{{ producto.nombre }}</h6>
+                            <p class="precio">Bs {{ producto.precio }}</p>
+                            <div class="card-actions">
+                                <span class="stock-badge
+                                    {% if producto.stock < 5 %}stock-badge-danger{% elif producto.stock < 10 %}stock-badge-warning{% else %}stock-badge-success{% endif %}">
+                                    <i class="fas fa-box"></i> {{ producto.stock }}
+                                </span>
+                                <div class="d-flex gap-1">
+                                    <a href="/productos/editar/{{ producto.id }}" class="btn-accion btn-accion-editar" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/productos/eliminar/{{ producto.id }}" class="btn-accion btn-accion-eliminar" onclick="return confirm('¿Eliminar este producto?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </main>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='img/logo_pollos_guevara.png') }}" alt="Pollos Guevara" title="Pollos Guevara" loading="lazy" />
+            </div>
+            <p>
+                <i class="fas fa-copyright"></i> Pollos Guevara 2026 —
+                <i class="fas fa-map-marker-alt"></i> Cochabamba, Bolivia
+            </p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BOOTSTRAP JS
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>
